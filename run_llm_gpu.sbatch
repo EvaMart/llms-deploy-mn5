@@ -6,8 +6,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=80
 #SBATCH --gres=gpu:4
-#SBATCH --output=/gpfs/home/bsc/bsc619075/test_scripts/llm_Qwen3.6_27B_gpu_%j.out
-#SBATCH --error=/gpfs/home/bsc/bsc619075/test_scripts/llm_Qwen3.6_27B_gpu_%j.err
+#SBATCH --output=/gpfs/home/bsc/bsc619075/llms-deploy-mn5/llm_Qwen3.6_27B_gpu_%j.out
+#SBATCH --error=/gpfs/home/bsc/bsc619075/llms-deploy-mn5/llm_Qwen3.6_27B_gpu_%j.err
 
 # --- MN5 recommendation when using srun ---
 export SRUN_CPUS_PER_TASK=${SLURM_CPUS_PER_TASK}
@@ -63,7 +63,7 @@ python -c "import torch, transformers; print('torch', torch.__version__); print(
 
 MODEL_DIR="/gpfs/projects/bsc23/models/Qwen3.6-27B"
 
-srun python /gpfs/home/bsc/bsc619075/test_scripts/local_infer.py \
+srun python /gpfs/home/bsc/bsc619075/llms-deploy-mn5/local_infer.py \
   --model_dir "$MODEL_DIR" \
   --prompt "Hello from MN5 GPU job from " \
   --max_new_tokens 100
