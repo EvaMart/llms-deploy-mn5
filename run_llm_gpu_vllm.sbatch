@@ -15,6 +15,7 @@ export SRUN_CPUS_PER_TASK=${SLURM_CPUS_PER_TASK}
 # --- Modules + venv ---
 module purge
 module load intel mkl impi hdf5 python/3.12.1
+module load gcc
 
 # Prevent leakage from user/global packages
 export PYTHONNOUSERSITE=1
@@ -24,19 +25,18 @@ unset PYTHONPATH
 # Activate venv
 source /gpfs/home/bsc/bsc619075/envs/llm/bin/activate
 
+export CC=$(which gcc)
+export CXX=$(which g++)
+export CUDAHOSTCXX=$(which g++)
+
+rm -rf /gpfs/home/bsc/bsc619075/.cache/flashinfer
+
 # Diagnostics
-echo "which python:"
-which python
-echo "which pip:"
-which pip
-python -m pip --version
-python -c "
-import sys, torch
-print('sys.prefix:', sys.prefix)
-print('sys.base_prefix:', sys.base_prefix)
-print('torch file:', torch.__file__)
-print('torch version:', torch.__version__)
-"
+which nvcc
+nvcc --version
+which gcc
+gcc --version
+echo $CUDAHOSTCXX
 
 # --- Working dir (recommended: not /gpfs/home) ---
 RUN_DIR=/gpfs/scratch/bsc23/runs/${SLURM_JOB_ID}
