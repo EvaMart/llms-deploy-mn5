@@ -6,8 +6,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=80
 #SBATCH --gres=gpu:4
-#SBATCH --output=/gpfs/home/bsc/bsc619075/llms-deploy-mn5/llm_Qwen3.6_27B_gpu_%j.out
-#SBATCH --error=/gpfs/home/bsc/bsc619075/llms-deploy-mn5/llm_Qwen3.6_27B_gpu_%j.err
+#SBATCH --output=/gpfs/home/bsc/bsc619075/llms-deploy-mn5/vllm_Qwen3.6_27B_gpu_%j.out
+#SBATCH --error=/gpfs/home/bsc/bsc619075/llms-deploy-mn5/vllm_Qwen3.6_27B_gpu_%j.err
 
 # --- MN5 recommendation when using srun ---
 export SRUN_CPUS_PER_TASK=${SLURM_CPUS_PER_TASK}
